@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="/static/css/signup.css">
+    <link rel="stylesheet" href="/static/css/nav.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li class="nav-item">
+                <a href="{% url 'recipes:recipes' %}">All Recipes</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'recipes:search' %}">Search</a>
+            </li>
+            <li class="nav-item header-home">
+                <a href="{% url 'recipes:home' %}"><h1>Recipe App</h1></a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'users:profile' %}">Profile</a>
+            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+                <li class="nav-item"><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <main>
+        {% comment %} print heading {% endcomment %}
+        <h1>Sign Up</h1>
+        <div class="main-box">
+            {% comment %} check for error message {% endcomment %}
+            {% if error_message %} {{error_message}} {% endif %}
+            <form method="POST">
+                {% comment %} add Django security token {% endcomment %}
+                {% csrf_token %}
+                {% comment %} extract fields for styling purposes {% endcomment %}
+                {% for field in form %}
+                    {{ field.label_tag }} <br>
+                    {{ field }} <br>
+                    {% if field.help_text %}
+                        <small style="color:rgb(107, 107, 107)">
+                            {{ field.help_text }}
+                        </small>
+                        <br>
+                    {% endif %}
+                    {% comment %} display any errors for each field {% endcomment %}
+                    {% for error in field.errors %}
+                        <p style="color: red">
+                            {{ error }}
+                        </p>
+                    {% endfor %}
+                {% endfor %}
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </main>
+</body>

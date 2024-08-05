@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/users_profile.css">
+    <link rel="stylesheet" href="/static/css/nav.css">
+    <title>Profile</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li class="nav-item">
+                <a href="{% url 'recipes:recipes' %}">All Recipes</a>
+            </li>
+            <li class="nav-item"><a href="{% url 'recipes:search' %}">Search</a></li>
+            <li class="nav-item header-home"><a href="{% url 'recipes:home' %}"><h1>Recipe App</h1></a></li>
+            <li class="nav-item"><a href="{% url 'users:profile' %}">Profile</a></li>
+            <li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="main-box">
+            <div class="image-container">
+                <img src="{{current_user.pic.url}}" />
+            </div>
+            <div class="details">
+                <h1>{{current_user.name}}</h1>
+                <p>
+                    <b>Bio:</b> <br>
+                    {{current_user.bio}}
+                </p>
+                <a class="button" href="{% url 'recipes:creator' object.pk %}">Manage Recipes</a>
+            </div>
+        </div>
+    </main>
+</body>

@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Creator's Recipes</title>
+    <link rel="stylesheet" href="/static/css/creator_recipes.css">
+    <link rel="stylesheet" href="/static/css/nav.css">
+    <script src="{% static 'recipes/js/creator_recipes.js' %}" defer></script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li class="nav-item">
+                <a href="{% url 'recipes:recipes' %}">All Recipes</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'recipes:search' %}">Search</a>
+            </li>
+            <li class="nav-item header-home">
+                <a href="{% url 'recipes:home' %}"><h1>Recipe App</h1></a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'users:profile' %}">Profile</a>
+            </li>
+            <li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="main-box">
+            <div class="info-container">
+                <img src="{{ object.pic.url }}" alt="profile image" />
+                <div class="details">
+                    <h1>{{ object.name}}</h1>
+                    <p>
+                        <b>Bio:</b> <br />
+                        {{ object.bio}}
+                    </p>
+
+                    <a data-open-modal class="button" id="create">Add Recipe</a>
+                    <dialog data-modal>
+                        <button data-close-modal id="close-button">X</button>
+                        <h2>Create a Recipe</h2>
+                        
+                        <form action="{% url 'recipes:create_recipe' %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <label for="name">Recipe Name:</label>
+                            <input type="text" id="name" name="name" required>
+
+                            <label for="cooking_time">Cooking Time:</label>
+                            <input type="number" id="cooking_time" name="cooking_time" placeholder="in minutes" required>
+
+                            <label for="ingredients">Ingredients:</label>
+                            <textarea rows="3" type="text" id="ingredients" name="ingredients" placeholder="Separate each ingredient with a comma and space" required></textarea>
+
+                            <label for="description">Description:</label>
+                            <textarea type="text" id="description" name="description" rows="5" placeholder="[optional]enter a brief description for your recipe"></textarea>
+
+                            <label for="instructions">Instructions:</label>
+                            <textarea type="text" id="instructions" name="instructions" rows="10" placeholder="Number each step and separate with a semicolon and space. Ex: 1. Step 1; 2. Step 2" required></textarea>
+
+                            <label for="pic">Picture:</label>
+                            <input type="file" accept="image/*" id="pic" name="pic">
+
+                            <button type="submit" class="button">Submit</button>
+                        </form>
+                        
+                    </dialog>
+                </div>
+            </div>
+            
+            <h2>Recipes by {{object.name}}</h2>
+            <div class="recipes-box">
+                {% if recipes %}
+                <ul>
+                    {% for recipe in recipes %}
+                    <li>
+                        <img src="{{recipe.pic.url}}" alt="recipe reference image"/>
+                        <a href="{% url 'recipes:detail' pk=recipe.id %}"
+                            ><h2>{{recipe.name}}</h2></a
+                        >
+                        <p>
+                            Difficulty: {{recipe.calculate_difficulty}} <br />
+                            {{recipe.cooking_time}} minutes
+                        </p>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>{{object.name}} has not created any recipes yet!</p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+</body>

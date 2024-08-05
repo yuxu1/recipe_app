@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Successful Logout</title>
+        <link rel="stylesheet" href="/static/css/logout.css">
+        <link rel="stylesheet" href="/static/css/nav.css">
+        <style>
+            body {
+                background-image: url("{% static 'recipes/images/food_background.jpg' %}");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                height: 100vh;
+                overflow-x: hidden;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li class="nav-item"><a href="{% url 'recipes:recipes' %}">All Recipes</a></li>
+                <li class="nav-item"><a href="{% url 'recipes:search' %}">Search</a></li>
+                <li class="nav-item header-home"><a href="{% url 'recipes:home' %}"><h1>Recipe App</h1></a></li>
+                <li class="nav-item"><a href="{% url 'users:profile' %}">Profile</a></li>
+                <li class="nav-item"><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+        <main>
+            <div class="main-box">
+                <h1>Successfully logged out.</h1>
+                <button class="button"><a href="{%url 'login' %}">Log Back In Here!</a></button>
+            </div>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/about_me.css">
+    <link rel="stylesheet" href="/static/css/nav.css">
+    <title>About Me</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li class="nav-item">
+                <a href="{% url 'recipes:recipes' %}">All Recipes</a>
+            </li>
+            <li class="nav-item"><a href="{% url 'recipes:search' %}">Search</a></li>
+            <li class="nav-item header-home"><a href="{% url 'recipes:home' %}"><h1>Recipe App</h1></a></li>
+            <li class="nav-item"><a href="{% url 'users:profile' %}">Profile</a></li>
+            {% if user.is_authenticated %}
+                <li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+                <li class="nav-item"><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <main>
+        <div class="main-box">
+            <img id="profile-icon" src="{% static 'recipes/images/y_icon.jpeg' %}" alt="Custom Icon">
+            <h2>Hello!</h2>
+            <h3>My name is Yufan Xu. I am an aspiring web developer <br>
+                and the developer of this web application.</h3>
+            <p>
+                I am based in San Francisco and will be open to opportunities <br>
+                around the Bay Area or remote. <br>
+                Feel free to connect with me via email or on LinkedIn!
+            </p>
+            <p>
+                <b>Email: </b>
+                <a href="mailto:yufanx8@gmail.com">yufanx8@gmail.com</a>
+            </p>
+            <p>Check out some of my work <br> on GitHub or my portfolio down below!</p>
+            <div class="icons-container">
+                <a href="https://github.com/yuxu1" target="_blank" class="icon">
+                    <img src="{% static 'recipes/images/github-logo.svg' %}" alt="GitHub">
+                </a>
+                <a href="https://yuxu1.github.io/portfolio-website/" target="_blank" class="icon">
+                    <img src="{% static 'recipes/images/y_icon.jpeg' %}" alt="Portfolio">
+                </a>
+                <a href="https://www.linkedin.com/in/yufanxu/" target="_blank" class="icon">
+                    <img src="{% static 'recipes/images/linkedin-logo.svg' %}" alt="LinkedIn">
+                </a>
+            </div>
+        </div>
+    </main>
+</body>

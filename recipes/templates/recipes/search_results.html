@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipes Search</title>
+    <link rel="stylesheet" href="/static/css/search_results.css">
+    <link rel="stylesheet" href="/static/css/nav.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li class="nav-item">
+                <a href="{% url 'recipes:recipes' %}">All Recipes</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'recipes:search' %}">Search</a>
+            </li>
+            <li class="nav-item header-home">
+                <a href="{% url 'recipes:home' %}"><h1>Recipe App</h1></a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'users:profile' %}">Profile</a>
+            </li>
+            <li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+    <main>
+        <div class="main-box">
+            <h1>RECIPES SEARCH</h1>
+            <form action="" method="POST">
+                {% csrf_token %} {{form}}
+                <button type="submit">search</button>
+            </form>
+            <br />
+            {% if recipes_dict %}
+            <img src="data:image/png;base64, {{bar_chart|safe}}" />
+            <br/>
+            <img src="data:image/png;base64,{{ pie_chart }}" alt="Pie Chart" />
+            <br />
+            <ul>
+                {% for object in recipes_dict %}
+                <li>
+                    <img src="/media/{{object.pic}}" width="250" height="250" />
+                    <h2>
+                        <a href="/recipes/{{object.id}}">{{object.name}}</a>
+                    </h2>
+                    <p>
+                        Difficulty: {{object.difficulty}} <br />
+                        {{object.cooking_time}} minutes
+                    </p>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </main>
+</body>

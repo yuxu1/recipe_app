@@ -1,0 +1,91 @@
+{% load static %}
+
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Details</title>
+    <link rel="stylesheet" href="/static/css/recipes_details.css">
+    <link rel="stylesheet" href="/static/css/nav.css">
+    <script src="{% static 'recipes/js/recipes_details.js' %}" defer></script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li class="nav-item">
+                <a href="{% url 'recipes:recipes' %}">All Recipes</a>
+            </li>
+            <li class="nav-item"><a href="{% url 'recipes:search' %}">Search</a></li>
+            <li class="nav-item header-home"><a href="{% url 'recipes:home' %}"><h1>Recipe App</h1></a></li>
+            <li class="nav-item"><a href="{% url 'users:profile' %}">Profile</a></li>
+            <li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h1>{{object.name}}</h1>
+        <div class="main-box">
+            <div class="image-container">
+                <img src="{{object.pic.url}}" />
+            </div>
+            <div class="details">
+                <p><b>Created By:</b> <a href="{% url 'recipes:creator' object.creator.pk %}">{{object.creator}}</a></p>
+                <p><b>Cooking Time:</b> {{object.cooking_time}} minutes</p>
+                <p><b>Difficulty:</b> {{object.calculate_difficulty}}</p>
+                <p><b>Description:</b><br> {{object.description}}</p>
+                <p><b>Ingredients:</b> <br> </p>
+                {% for item in object.get_ingredients_as_list %}
+                    <li class="ingredients-list-item">{{item}}</li>
+                {% endfor %}
+                <p><b>Instructions:</b> <br /></p>
+                {% for step in object.get_instructions_as_list %}
+                    <li class="instructions-list-item">{{step}}</li>
+                {% endfor %}
+                {% comment %} Only show Update/Delete options for creator {% endcomment %}
+                {% if user.username|stringformat:"s" == object.creator.username|stringformat:"s" %}
+                    <div class="button-container">
+                        <a data-open-modal class="button">Update</a>
+                        <a open-delete-modal class="button" id="delete-button">Delete</a>
+                    </div>
+                {% endif %}
+
+                <!-- Update Modal -->
+                 <dialog data-modal>
+                    <button data-close-modal id="close-button">X</button>
+                    <h2>Update Recipe</h2>
+                    <form action="{% url 'recipes:update_recipe' object.id %}" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <label for="name">Recipe Name:</label>
+                        <input type="text" id="name" name="name" value="{{object.name}}" required>
+
+                        <label for="cooking_time">Cooking Time:</label>
+                        <input type="number" id="cooking_time" name="cooking_time" value="{{object.cooking_time}}" placeholder="in minutes" required>
+
+                        <label for="ingredients">Ingredients:</label>
+                        <textarea rows="3" type="text" id="ingredients" name="ingredients" placeholder="Separate each ingredient with a comma and space" required>{{object.ingredients}}</textarea>
+
+                        <label for="description">Description:</label>
+                        <textarea type="text" id="description" name="description" rows="5" placeholder="[optional]enter a brief description for your recipe">{{object.description}}</textarea>
+
+                        <label for="instructions">Instructions:</label>
+                        <textarea type="text" id="instructions" name="instructions" rows="10" placeholder="Number each step and separate with a semicolon and space. Ex: 1. Step 1; 2. Step 2" required>{{object.instructions}}</textarea>
+
+                        <label for="pic">Picture:</label>
+                        <input type="file" accept="image/*" id="pic" name="pic">
+
+                        <button type="submit" class="button">Update</button>
+                    </form>
+                 </dialog>
+
+                 <!-- Delete Modal -->
+                  <dialog delete-modal>
+                    <h2>Delete this Recipe</h2>
+                    <p> Are you sure you want to delete this recipe? This cannot be undone!</p>
+                    <div class="button-container">
+                        <a close-delete-modal class="button">Cancel</a>
+                        <a class="button" id="delete-button" href="{% url 'recipes:delete_recipe' object.id %}">Delete</a>
+                    </div>
+                  </dialog>
+            </div>
+        </div>
+    </main>
+</body>

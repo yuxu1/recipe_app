@@ -24,6 +24,7 @@ Use the Django web framework to develop a web application version of a recipe ap
 * virtualenvwrapper (create and manage virtual environments)
 * pip (install and manage packages)
 * SQLite3 database (for app development)
-* PostgreSQL database (hosted locally)
+* PostgreSQL database (for production/live app)
 * pandas (Python library for data handling and analysis)
 * matplotlib (library for data visualization and charting)
+* Koyeb (hosting platform for web service and database)

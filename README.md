@@ -1,5 +1,7 @@
 # Recipe App (Web Application Version)
 
+Hosted on Koyeb: [https://sensible-elva-yuxu1-946856e4.koyeb.app/](https://sensible-elva-yuxu1-946856e4.koyeb.app/)
+
 ## Objective:
 Use the Django web framework to develop a web application version of a recipe app, which is able to create, read, and modify recipes, as well as allow for searching of recipes based on ingredients. The application would have multiple users and an admin panel.
 

@@ -1,5 +1,7 @@
 # Recipe App (Web Application Version)
 
+![welcome](assets/welcome.png)
+
 Hosted on Koyeb: [https://sensible-elva-yuxu1-946856e4.koyeb.app/](https://sensible-elva-yuxu1-946856e4.koyeb.app/)
 
 ## Objective:
@@ -7,16 +9,23 @@ Use the Django web framework to develop a web application version of a recipe ap
 
 ## Key Features:
 * Allow for user signup, authentication, login and logout.
-* Let users search for recipes according to name and/or ingredients.
+* Allow users to create new recipes.
 * Automatically rate each recipe by difficulty level.
 * Receive user input and handle errors appropriately.
-* Display more details on each recipe if the user asks for that.
-* Allow users to create new recipes.
 * Allow users to update and delete recipes created by themselves.
-* Allow users to view a profile page of other users, including that user's recipes.
-* Add user recipes to an SQLite database.
-* Include a Django Admin dashboard for working with database entries.
+* Let users search for recipes according to name and/or ingredients.
 * Show statistics and visualizations based on trends and data analysis.
+* Display more details on each recipe if the user asks for that.
+* Allow users to view a profile page of other users, including that user's recipes.
+* Include a Django Admin dashboard for working with database entries.
+
+![viewing all recipes](assets/recipes.png)
+
+![viewing details of a specific recipe](assets/details.png)
+
+![search recipes and view chart visualizations](assets/search.png)
+
+![view a user's profile](assets/user-profile.png)
 
 ## Technologies
 * Python (version 3.8)
@@ -28,3 +37,5 @@ Use the Django web framework to develop a web application version of a recipe ap
 * pandas (Python library for data handling and analysis)
 * matplotlib (library for data visualization and charting)
 * Koyeb (hosting platform for web service and database)
+* WhiteNoise (serving static files)
+* Cloudinary (serving media files)

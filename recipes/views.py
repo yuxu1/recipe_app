@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required #to protect function-b
 from .forms import RecipesSearchForm, CreateRecipeForm
 import pandas as pd
 from .utils import get_pie_chart, get_bar_chart
-from users.models import User
+from cloudinary.utils import cloudinary_url
 
 
 def recipes_home(request):
@@ -67,9 +67,10 @@ def search_results(request):
             #for each recipe in filtered queryset
             for obj in qs:
                 diff = obj.calculate_difficulty() #calculate recipe's difficulty
-                difficulty_values.append(diff) #append to list
+                difficulty_values.append(diff) #append to list 
             recipes_df['difficulty'] = difficulty_values #add list as new 'difficulty' column in queryset
-
+            #set each 'pic' to its cloudinary source if available
+            recipes_df['pic'] = recipes_df.apply(lambda row: cloudinary_url(row['pic'])[0] if 'pic' in row else None, axis=1)
             bar_chart = get_bar_chart(recipes_df)
             pie_chart = get_pie_chart(recipes_df)
             #convert DataFrame to dictionary

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8" />
@@ -23,7 +24,11 @@
             <ul>
                 {% for object in object_list %}
                 <li>
-                    <img src="{{object.pic.url}}" width="250" height="250" />
+                    {% if object.pic %}
+                    <img src="{{object.pic.url}}" width="250" height="250" alt="recipe image" />
+                    {% else %}
+                    <img src="{% static 'img/blank_image.png' %}" alt="blank recipe image"/>
+                    {% endif %}
                     <h2>
                         <a href="{{object.get_absolute_url}}"
                             >{{object.name}}</a

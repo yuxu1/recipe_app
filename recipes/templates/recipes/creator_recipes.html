@@ -30,7 +30,11 @@
     <main>
         <div class="main-box">
             <div class="info-container">
+                {% if object.pic %}
                 <img src="{{ object.pic.url }}" alt="profile image" />
+                {% else %}
+                <img src="{% static 'img/blank-profile-picture.png'%}" alt="blank profile picture"/>
+                {% endif %}
                 <div class="details">
                     <h1>{{ object.name}}</h1>
                     <p>
@@ -76,7 +80,11 @@
                 <ul>
                     {% for recipe in recipes %}
                     <li>
+                        {% if recipe.pic %}
                         <img src="{{recipe.pic.url}}" alt="recipe reference image"/>
+                        {% else %}
+                        <img src="{% static 'img/blank_image.png' %}">
+                        {% endif %}
                         <a href="{% url 'recipes:detail' pk=recipe.id %}"
                             ><h2>{{recipe.name}}</h2></a
                         >

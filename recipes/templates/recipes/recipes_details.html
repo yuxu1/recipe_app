@@ -25,7 +25,11 @@
         <h1>{{object.name}}</h1>
         <div class="main-box">
             <div class="image-container">
-                <img src="{{object.pic.url}}" />
+                {% if object.pic %}
+                <img src="{{object.pic.url}}" alt="recipe image"/>
+                {% else %}
+                <img src="{% static 'img/blank_image.png' %}" alt="blank recipe image"/>
+                {% endif %}
             </div>
             <div class="details">
                 <p><b>Created By:</b> <a href="{% url 'recipes:creator' object.creator.pk %}">{{object.creator}}</a></p>

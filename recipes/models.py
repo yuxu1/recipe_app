@@ -18,7 +18,8 @@ class Recipe(models.Model):
         default="",
         help_text="Number your steps and separate with a semicolon and a space, like '1. step 1; 2. step 2; 3. step 3'. Do not use semicolons within a step"
     )
-    pic = models.ImageField(upload_to="recipes", default="blank_image.png")
+    #pic = models.ImageField(upload_to="recipes", default="blank_image.png")
+    pic = models.ImageField(upload_to="recipes",null=True, blank=True)
     # link to user who created the recipe (optional field)
     # if user is deleted, set field to null instead of deleting recipe
     creator = models.ForeignKey(

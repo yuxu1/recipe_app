@@ -1,3 +1,4 @@
+{% load static%}
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8" />
@@ -40,7 +41,11 @@
             <ul>
                 {% for object in recipes_dict %}
                 <li>
-                    <img src="/media/{{object.pic}}" width="250" height="250" />
+                    {% if object.pic %}
+                    <img src="{{object.pic}}" width="250" height="250" alt="recipe image"/>
+                    {% else %}
+                    <img src="{% static 'img/blank_image.png'%}" alt="blank recipe image"/>
+                    {% endif %}
                     <h2>
                         <a href="/recipes/{{object.id}}">{{object.name}}</a>
                     </h2>

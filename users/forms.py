@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import AppUser
 
 
 class SignUpForm(UserCreationForm):
@@ -9,5 +10,6 @@ class SignUpForm(UserCreationForm):
     pic = forms.ImageField(label='Profile Picture', required=False, help_text='optional')
 
     class Meta:
-        model = User
+        #model = User
+        model = AppUser
         fields = ('username', 'name', 'bio', 'pic', 'password1', 'password2')

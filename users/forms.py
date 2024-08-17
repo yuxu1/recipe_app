@@ -10,6 +10,5 @@ class SignUpForm(UserCreationForm):
     pic = forms.ImageField(label='Profile Picture', required=False, help_text='optional')
 
     class Meta:
-        #model = User
-        model = AppUser
+        model = User
         fields = ('username', 'name', 'bio', 'pic', 'password1', 'password2')

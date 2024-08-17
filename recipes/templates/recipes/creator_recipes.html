@@ -41,8 +41,9 @@
                         <b>Bio:</b> <br />
                         {{ object.bio}}
                     </p>
-
-                    <a data-open-modal class="button" id="create">Add Recipe</a>
+                    {% if object.username|stringformat:"s" == user.username|stringformat:"s" %}
+                        <a data-open-modal class="button" id="create">Add Recipe</a>
+                    {% endif %}
                     <dialog data-modal>
                         <button data-close-modal id="close-button">X</button>
                         <h2>Create a Recipe</h2>
